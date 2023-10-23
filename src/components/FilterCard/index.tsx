@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Card = styled.div<Props>`
+const Card = styled.div<PropsWithOutTypeAndAccountant>`
   padding: 8px;
   border: 1px solid ${(props) => (props.ativo ? '#1e90ff' : '#a1a1a1')};
   background-color: ${(props) => (props.ativo ? '#ffffff' : '#fcfcfc')};
@@ -19,12 +19,16 @@ const Label = styled.span`
 
 type Props = {
   ativo?: boolean
+  accountant: number
+  toDoType: string
 }
 
-const FilterCard = (props: Props) => (
-  <Card ativo={props.ativo}>
-    <Accountant>3</Accountant>
-    <Label>Pendentes</Label>
+type PropsWithOutTypeAndAccountant = Omit<Props, 'accountant' | 'toDoType'>
+
+const FilterCard = ({ ativo, accountant, toDoType }: Props) => (
+  <Card ativo={ativo}>
+    <Accountant>{accountant}</Accountant>
+    <Label>{toDoType}</Label>
   </Card>
 )
 

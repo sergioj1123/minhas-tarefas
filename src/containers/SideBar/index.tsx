@@ -29,12 +29,12 @@ const SideBar = () => (
     <div>
       <Input type="text" placeholder="Buscar" />
       <Filter>
-        <FilterCard></FilterCard>
-        <FilterCard></FilterCard>
-        <FilterCard></FilterCard>
-        <FilterCard></FilterCard>
-        <FilterCard></FilterCard>
-        <FilterCard ativo></FilterCard>
+        <FilterCard accountant={1} toDoType="Pendentes"></FilterCard>
+        <FilterCard accountant={2} toDoType="Concluidas"></FilterCard>
+        <FilterCard accountant={3} toDoType="Urgentes"></FilterCard>
+        <FilterCard accountant={4} toDoType="Importantes"></FilterCard>
+        <FilterCard accountant={5} toDoType="Normal"></FilterCard>
+        <FilterCard accountant={10} toDoType="Todas" ativo></FilterCard>
       </Filter>
     </div>
   </Aside>
