@@ -1,10 +1,14 @@
+import { useState } from 'react'
 import styled from 'styled-components'
+import variables from '../../styles/variables'
+import * as enums from '../../util/enums/Tarefa'
 
 const Card = styled.div`
   background-color: #fcfcfc;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 16px;
   margin-bottom: 32px;
+  border-radius: 16px;
 `
 
 const Title = styled.h3`
@@ -13,12 +17,12 @@ const Title = styled.h3`
   margin-bottom: 16px;
 `
 
-const Tag = styled.span`
+const Tag = styled.span<TagProps>`
   padding: 4px 8px;
   color: #fff;
   font-size: 10px;
   font-weight: bold;
-  background-color: #e1a32a;
+  background-color: ${(props) => backgroundColor(props)};
   border-radius: 8px;
   margin-right: 16px;
   display: inline-block;
@@ -54,17 +58,67 @@ const Button = styled.button`
   margin-right: 8px;
 `
 
-const Task = () => (
-  <Card>
-    <Title>Nopme da Tarefa</Title>
-    <Tag>Importante</Tag>
-    <Tag>Pendente</Tag>
-    <Description></Description>
-    <ActionBar>
-      <Button>Editar</Button>
-      <Button>Remover</Button>
-    </ActionBar>
-  </Card>
-)
+const SaveButton = styled(Button)`
+  background-color: ${variables.green};
+`
+const RemoveButton = styled(Button)`
+  background-color: ${variables.red};
+`
+
+type Props = {
+  title: string
+  priority: enums.Priority
+  status: enums.Status
+  description: string
+}
+
+type TagProps = {
+  priority?: enums.Priority
+  status?: enums.Status
+  parametro: 'status' | 'priority'
+}
+
+function backgroundColor(props: TagProps): string {
+  if (props.parametro === 'status') {
+    if (props.status === enums.Status.PENDENTE) return variables.yellow
+    if (props.status === enums.Status.CONCLUIDA) return variables.green
+  } else {
+    if (props.priority === enums.Priority.URGENTE) return variables.red
+    if (props.priority === enums.Priority.IMPORTANTE) return variables.yellow2
+  }
+  return '#ccc'
+}
+
+const Task = ({ title, priority, status, description }: Props) => {
+  const [editing, setEditing] = useState(false)
+
+  return (
+    <Card>
+      <Title>{title}</Title>
+      <Tag parametro="priority" priority={priority}>
+        {priority}
+      </Tag>
+      <Tag parametro="status" status={status}>
+        {status}
+      </Tag>
+      <Description value={description}></Description>
+      <ActionBar>
+        {editing ? (
+          <>
+            <SaveButton>Salvar</SaveButton>
+            <RemoveButton onClick={() => setEditing(false)}>
+              Cancelar
+            </RemoveButton>
+          </>
+        ) : (
+          <>
+            <Button onClick={() => setEditing(true)}>Editar</Button>
+            <RemoveButton>Remover</RemoveButton>
+          </>
+        )}
+      </ActionBar>
+    </Card>
+  )
+}
 
 export default Task
