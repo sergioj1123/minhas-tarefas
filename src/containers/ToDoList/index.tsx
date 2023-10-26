@@ -10,19 +10,20 @@ const Container = styled.main`
 `
 
 const ToDoList = () => {
-  const tasks = useSelector((state: RootReducer) => state.task)
+  const { items } = useSelector((state: RootReducer) => state.task)
 
   return (
     <Container>
       <p>2 tarefas marcadas como: &apos;categoria&apos; e &apos;termo&apos;</p>
       <ul>
-        {tasks.map((t) => (
+        {items.map((t) => (
           <li key={t.title}>
             <Task
               description={t.description}
               title={t.title}
               status={t.status}
               priority={t.priority}
+              id={t.id}
             ></Task>
           </li>
         ))}

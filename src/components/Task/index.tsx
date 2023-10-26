@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
+
 import variables from '../../styles/variables'
 import * as enums from '../../util/enums/Tarefa'
+import { remove } from '../../store/reducers/task'
+import TaskClass from '../../models/Task'
 
 const Card = styled.div`
   background-color: #fcfcfc;
@@ -13,7 +17,7 @@ const Card = styled.div`
 
 const Title = styled.h3`
   font-size: 18px;
-  font-weight: bold;
+  font-weight: bold;S
   margin-bottom: 16px;
 `
 
@@ -65,12 +69,7 @@ const RemoveButton = styled(Button)`
   background-color: ${variables.red};
 `
 
-type Props = {
-  title: string
-  priority: enums.Priority
-  status: enums.Status
-  description: string
-}
+type Props = TaskClass
 
 type TagProps = {
   priority?: enums.Priority
@@ -89,8 +88,9 @@ function backgroundColor(props: TagProps): string {
   return '#ccc'
 }
 
-const Task = ({ title, priority, status, description }: Props) => {
+const Task = ({ title, priority, status, description, id }: Props) => {
   const [editing, setEditing] = useState(false)
+  const dispatch = useDispatch()
 
   return (
     <Card>
@@ -113,7 +113,9 @@ const Task = ({ title, priority, status, description }: Props) => {
         ) : (
           <>
             <Button onClick={() => setEditing(true)}>Editar</Button>
-            <RemoveButton>Remover</RemoveButton>
+            <RemoveButton onClick={() => dispatch(remove(id))}>
+              Remover
+            </RemoveButton>
           </>
         )}
       </ActionBar>
