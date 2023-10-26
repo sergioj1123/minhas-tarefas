@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 
 import variables from '../../styles/variables'
 import * as enums from '../../util/enums/Tarefa'
-import { remove } from '../../store/reducers/task'
+import { remove, edict } from '../../store/reducers/task'
 import TaskClass from '../../models/Task'
 
 const Card = styled.div`
@@ -88,9 +88,38 @@ function backgroundColor(props: TagProps): string {
   return '#ccc'
 }
 
-const Task = ({ title, priority, status, description, id }: Props) => {
+const Task = ({
+  title,
+  priority,
+  status,
+  description: descriptionOrignal,
+  id
+}: Props) => {
   const [editing, setEditing] = useState(false)
+  const [description, setDescription] = useState('')
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (descriptionOrignal.length > 0) setDescription(descriptionOrignal)
+  }, [descriptionOrignal])
+
+  function cancelButtonClick() {
+    setEditing(false)
+    setDescription(descriptionOrignal)
+  }
+
+  function SaveButtonClick() {
+    dispatch(
+      edict({
+        title,
+        priority,
+        status,
+        description,
+        id
+      })
+    )
+    setEditing(false)
+  }
 
   return (
     <Card>
@@ -101,14 +130,16 @@ const Task = ({ title, priority, status, description, id }: Props) => {
       <Tag parametro="status" status={status}>
         {status}
       </Tag>
-      <Description value={description}></Description>
+      <Description
+        disabled={!editing}
+        value={description}
+        onChange={(event) => setDescription(event.target.value)}
+      ></Description>
       <ActionBar>
         {editing ? (
           <>
-            <SaveButton>Salvar</SaveButton>
-            <RemoveButton onClick={() => setEditing(false)}>
-              Cancelar
-            </RemoveButton>
+            <SaveButton onClick={SaveButtonClick}>Salvar</SaveButton>
+            <RemoveButton onClick={cancelButtonClick}>Cancelar</RemoveButton>
           </>
         ) : (
           <>
