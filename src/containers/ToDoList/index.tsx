@@ -9,6 +9,13 @@ const Container = styled.main`
   overflow-y: scroll;
 `
 
+const Result = styled.p`
+  display: block;
+  margin: 40px 0;
+  font-size: 18px;
+  font-weight: bold;
+`
+
 const ToDoList = () => {
   const { items } = useSelector((state: RootReducer) => state.task)
   const { nameOfTask, typeOfFilter, value } = useSelector(
@@ -33,19 +40,28 @@ const ToDoList = () => {
     }
   }
 
+  const task = taskFilter()
+
+  const showFilterResult = (quantity: number) => {
+    let message = ''
+    const normalText =
+      nameOfTask !== undefined && nameOfTask.length > 0
+        ? `e "${nameOfTask}"`
+        : ``
+    message =
+      typeOfFilter === 'every'
+        ? `${quantity} tarefa(s) encontrada(s) como: "Todas" ${normalText}`
+        : `${quantity} tarefa(s) encontrada(s) como: "${`${typeOfFilter}: ${value}`}" ${normalText}`
+    return message
+  }
+
+  const message = showFilterResult(task.length)
+
   return (
     <Container>
-      <p>
-        2 tarefas marcadas como: &apos;categoria&apos; e &apos;{nameOfTask}
-        &apos;
-      </p>
+      <Result>{message}</Result>
       <ul>
-        <li>{nameOfTask}</li>
-        <li>{typeOfFilter}</li>
-        <li>{value}</li>
-      </ul>
-      <ul>
-        {taskFilter().map((t) => (
+        {task.map((t) => (
           <li key={t.title}>
             <Task
               description={t.description}
