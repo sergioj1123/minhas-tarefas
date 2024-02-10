@@ -1,6 +1,6 @@
-# Agenda de Celular
+# Agenda de Tarefas
 
-Este é um aplicativo de agenda de celular desenvolvido com React, TypeScript, Redux e Styled Components.
+Este é um aplicativo de agenda de tarefas desenvolvido com React, TypeScript, Redux e Styled Components.
 
 ## Funcionalidades
 
