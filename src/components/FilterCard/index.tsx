@@ -12,6 +12,7 @@ const Card = styled.div<PropsActiveSearch>`
   border-radius: 8px;
   cursor: pointer;
 `
+
 const Accountant = styled.span`
   font-weight: bold;
   font-size: 24px;

@@ -2,19 +2,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import Task from '../../components/Task'
 import { RootReducer } from '../../store'
-
-const Container = styled.main`
-  padding: 0 40px;
-  height: 100vh;
-  overflow-y: scroll;
-`
-
-const Result = styled.p`
-  display: block;
-  margin: 40px 0;
-  font-size: 18px;
-  font-weight: bold;
-`
+import { MainContainer, Title } from '../../styles/index'
 
 const ToDoList = () => {
   const { items } = useSelector((state: RootReducer) => state.task)
@@ -58,8 +46,8 @@ const ToDoList = () => {
   const message = showFilterResult(task.length)
 
   return (
-    <Container>
-      <Result>{message}</Result>
+    <MainContainer>
+      <Title as="p">{message}</Title>
       <ul>
         {task.map((t) => (
           <li key={t.title}>
@@ -73,7 +61,7 @@ const ToDoList = () => {
           </li>
         ))}
       </ul>
-    </Container>
+    </MainContainer>
   )
 }
 

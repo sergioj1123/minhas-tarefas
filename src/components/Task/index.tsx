@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 
 import variables from '../../styles/variables'
 import * as enums from '../../util/enums/Tarefa'
-import { remove, edict } from '../../store/reducers/task'
+import { remove, edict, changeStatus } from '../../store/reducers/task'
 import TaskClass from '../../models/Task'
+import { Button, SaveButton } from '../../styles'
 
 const Card = styled.div`
   background-color: #fcfcfc;
@@ -13,12 +14,18 @@ const Card = styled.div`
   padding: 16px;
   margin-bottom: 32px;
   border-radius: 16px;
+  label {
+    display: flex;
+    margin-bottom: 32px;
+    align-items: center;
+  }
 `
 
 const Title = styled.h3`
   font-size: 18px;
   font-weight: bold;S
   margin-bottom: 16px;
+  margin-left: 8px;
 `
 
 const Tag = styled.span<TagProps>`
@@ -50,21 +57,6 @@ const ActionBar = styled.div`
   padding-top: 16px;
 `
 
-const Button = styled.button`
-  font-size: 12px;
-  font-weight: bold;
-  color: #fff;
-  padding: 8px 12px;
-  cursor: pointer;
-  border: none;
-  background-color: #2f3640;
-  border-radius: 8px;
-  margin-right: 8px;
-`
-
-const SaveButton = styled(Button)`
-  background-color: ${variables.green};
-`
 const RemoveButton = styled(Button)`
   background-color: ${variables.red};
 `
@@ -121,9 +113,29 @@ const Task = ({
     setEditing(false)
   }
 
+  function changeStatusTask(event: ChangeEvent<HTMLInputElement>) {
+    dispatch(
+      changeStatus({
+        id,
+        finished: event.target.checked
+      })
+    )
+  }
+
   return (
     <Card>
-      <Title>{title}</Title>
+      <label htmlFor={title}>
+        <input
+          type="checkbox"
+          id={title}
+          onChange={changeStatusTask}
+          checked={status === enums.Status.CONCLUIDA}
+        />
+        <Title>
+          {editing && <em>Editando: </em>}
+          {title}
+        </Title>
+      </label>
       <Tag parametro="priority" priority={priority}>
         {priority}
       </Tag>

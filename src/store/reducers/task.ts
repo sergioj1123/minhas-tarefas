@@ -45,10 +45,39 @@ const tasksSlice = createSlice({
       if (taskIndex >= 0) {
         state.items[taskIndex] = action.payload
       }
+    },
+    register: (state, action: PayloadAction<Omit<Task, 'id'>>) => {
+      const taskAlreadyRegistered = state.items.find(
+        (task) =>
+          task.title.toLowerCase() === action.payload.title.toLowerCase()
+      )
+
+      if (taskAlreadyRegistered) {
+        alert('Tarefa já cadastrada')
+      } else {
+        const lastTask = state.items[state.items.length - 1]
+        const newTask = {
+          ...action.payload,
+          id: lastTask ? lastTask.id + 1 : 1
+        }
+        state.items.push(newTask)
+      }
+    },
+    changeStatus: (
+      state,
+      action: PayloadAction<{ id: number; finished: boolean }>
+    ) => {
+      const taskIndex = state.items.findIndex((t) => t.id === action.payload.id)
+
+      if (taskIndex >= 0) {
+        state.items[taskIndex].status = action.payload.finished
+          ? enums.Status.CONCLUIDA
+          : enums.Status.PENDENTE
+      }
     }
   }
 })
 
-export const { remove, edict } = tasksSlice.actions
+export const { remove, edict, register, changeStatus } = tasksSlice.actions
 
 export default tasksSlice.reducer

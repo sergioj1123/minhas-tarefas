@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { changeNameOfTask } from '../../store/reducers/filter'
 import * as enums from '../../util/enums/Tarefa'
+import { Button, Input } from '../../styles'
+import { useNavigate } from 'react-router-dom'
 
 const Aside = styled.aside`
   padding: 16px;
@@ -18,57 +20,62 @@ const Filter = styled.div`
   margin-top: 16px;
 `
 
-const Input = styled.input`
-  padding: 8px;
-  background-color: #fff;
-  font-weight: bold;
-  border-radius: 8px;
-  border-color: #666666;
-  color: #666666;
-  width: 100%;
-`
+type Props = {
+  showFilter: boolean
+}
 
-const SideBar = () => {
+const SideBar = ({ showFilter }: Props) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { nameOfTask } = useSelector((state: RootReducer) => state.filter)
 
   return (
     <Aside>
       <div>
-        <Input
-          type="text"
-          placeholder="Buscar"
-          value={nameOfTask}
-          onChange={(event) => dispatch(changeNameOfTask(event.target.value))}
-        />
-        <Filter>
-          <FilterCard
-            toDoType="Pendentes"
-            typeOfFilter="status"
-            value={enums.Status.PENDENTE}
-          ></FilterCard>
-          <FilterCard
-            toDoType="Concluidas"
-            typeOfFilter="status"
-            value={enums.Status.CONCLUIDA}
-          ></FilterCard>
-          <FilterCard
-            toDoType="Urgentes"
-            typeOfFilter="priority"
-            value={enums.Priority.URGENTE}
-          ></FilterCard>
-          <FilterCard
-            toDoType="Importantes"
-            typeOfFilter="priority"
-            value={enums.Priority.IMPORTANTE}
-          ></FilterCard>
-          <FilterCard
-            toDoType="Normal"
-            typeOfFilter="status"
-            value={enums.Priority.NORMAL}
-          ></FilterCard>
-          <FilterCard toDoType="Todas" typeOfFilter="every"></FilterCard>
-        </Filter>
+        {showFilter ? (
+          <>
+            <Input
+              type="text"
+              placeholder="Buscar"
+              value={nameOfTask}
+              onChange={(event) =>
+                dispatch(changeNameOfTask(event.target.value))
+              }
+            />
+            <Filter>
+              <FilterCard
+                toDoType="Pendentes"
+                typeOfFilter="status"
+                value={enums.Status.PENDENTE}
+              ></FilterCard>
+              <FilterCard
+                toDoType="Concluidas"
+                typeOfFilter="status"
+                value={enums.Status.CONCLUIDA}
+              ></FilterCard>
+              <FilterCard
+                toDoType="Urgentes"
+                typeOfFilter="priority"
+                value={enums.Priority.URGENTE}
+              ></FilterCard>
+              <FilterCard
+                toDoType="Importantes"
+                typeOfFilter="priority"
+                value={enums.Priority.IMPORTANTE}
+              ></FilterCard>
+              <FilterCard
+                toDoType="Normal"
+                typeOfFilter="priority"
+                value={enums.Priority.NORMAL}
+              ></FilterCard>
+              <FilterCard toDoType="Todas" typeOfFilter="every"></FilterCard>
+            </Filter>
+          </>
+        ) : (
+          <Button type="button" onClick={() => navigate('/')}>
+            Voltar a lista de Tarefas
+          </Button>
+        )}
       </div>
     </Aside>
   )
