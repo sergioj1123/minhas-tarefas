@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# Agenda de Celular
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este é um aplicativo de agenda de celular desenvolvido com React, TypeScript, Redux e Styled Components.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+- Adicionar Nova Tarefa: Permite adicionar uma nova tarefa com título, prioridade, status e descrição.
+- Editar Tarefa Existente: Permite editar uma tarefa já existente para atualizar suas informações.
+- Alterar Status da Tarefa: Permite marcar uma tarefa como concluída ou pendente.
+- Filtro de Tarefas: Permite filtrar as tarefas por status (pendentes, concluídas), prioridade (importante, urgente, normal) ou exibir todas as tarefas.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Campos da Tarefa
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Título: O título da tarefa.
+- Prioridade: Importante, Urgente ou Normal.
+- Status: Concluída ou Pendente.
+- Descrição: Descrição detalhada da tarefa.
 
-### `npm test`
+## Pré-requisitos
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Para executar este aplicativo localmente, você precisa ter o Node.js instalado na sua máquina.
 
-### `npm run build`
+## Instalação
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone este repositório em sua máquina local:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   git clone https://github.com/sergioj1123/minhas-tarefas.git
+    ```
+2. Navegue até o diretório do projeto:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   cd minhas-tarefas
+    ```
+3. Instale as dependências:
 
-### `npm run eject`
+   ```bash
+   npm install
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Como Executar
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Após a instalação das dependências, você pode iniciar o aplicativo com o seguinte comando:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+   ```bash
+   npm start
+   ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Como Executar
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+ Tecnologias Utilizadas:
+
+
+- React: Biblioteca JavaScript para construção de interfaces de usuário.
+- TypeScript: Superset do JavaScript que adiciona tipagem estática opcional.
+- Redux: Biblioteca para gerenciamento de estado da aplicação.
+- Styled Components: Biblioteca para estilização de componentes com CSS-in-JS.
+
+## Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue para relatar problemas ou sugerir melhorias. Se deseja contribuir diretamente, faça um fork do repositório e envie um pull request com suas alterações.
